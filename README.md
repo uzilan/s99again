@@ -16,6 +16,3 @@ $ sbt gen-idea
 To test continuously, run:
 
 $ sbt ~test
-
-
-hej!
