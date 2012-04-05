@@ -194,11 +194,34 @@ res0: List[Any] = List((4,'a), 'b, (2,'c), (2,'a), 'd, (4,'e)) */
 
   scala> decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
   res0: List[Symbol] = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
-
+    */
     "Decode a run-length encoded list" in {
-      val result = wwl$$.decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
+      val result = wwl.decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
       result mustEqual List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
     }
+
+    /*
+    P13 (**) Run-length encoding of a list (direct solution).
+Implement the so-called run-length encoding data compression method directly. I.e. don't use other methods you've written (like P09's pack); do all the work directly.
+Example:
+
+scala> encodeDirect(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+res0: List[(Int, Symbol)] = List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))
+     */
+    "Run-length encoding of a list (direct solution)" in {
+      val result = wwl.encodeDirect(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+      result mustEqual List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e))
+    }
+
+    /*
+   P14 (*) Duplicate the elements of a list.
+Example:
+scala> duplicate(List('a, 'b, 'c, 'c, 'd))
+res0: List[Symbol] = List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd)
     */
+    "Duplicate the elements of a list" in {
+      val result = wwl.duplicate(List('a, 'b, 'c, 'c, 'd))
+      result mustEqual List('a, 'a, 'b, 'b, 'c, 'c, 'c, 'c, 'd, 'd)
+    }
   }
 }

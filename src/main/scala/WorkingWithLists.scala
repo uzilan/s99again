@@ -102,4 +102,21 @@ class WorkingWithLists {
         else (element.size, element.head)
     }
   }
+
+  def decode[T](l: List[(Int, T)]): List[T] = l flatMap {
+    (element) => List.fill(element._1)(element._2)
+  }
+
+  def encodeDirect[T](l: List[T]): List[(Int, T)] = l.foldLeft(List[List[T]]()) {
+      (result, element) => {
+        if (result.isEmpty || result.last.last != element) result :+ List(element)
+        else result.dropRight(1) :+ (result.last :+ element)
+      }
+    } map {
+      element => (element.size, element.head)
+    }
+
+  def duplicate[T](l: List[T]): List[T] = l flatMap {
+    element => List.fill(2)(element)
+  }
 }
