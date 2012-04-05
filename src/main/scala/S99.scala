@@ -65,4 +65,47 @@ object S99 {
 
   def isPalindromeQue[T](l: List[T]): Boolean = l == l.reverse
 
+  def flatten(l: List[Any]): List[Any] = l flatMap {
+    case multi: List[_] => flatten(multi)
+    case element => List(element)
+  }
+
+  def compress[T](l: List[T]): List[T] = l match {
+    case a :: b :: tail => if (a == b) compress(a :: tail) else a :: compress(b :: tail)
+    case a => a
+  }
+
+  def compressFunctional[T](l: List[T]): List[T] = l.foldLeft(List[T]()) {
+    (result, element) => {
+      if (result.isEmpty || result.last != element) result :+ element
+      else result
+    }
+  }
+
+  /*
+  def pack[T](l: List[T]): List[List[T]] = {
+    l.takeWhile(element => l.head == element) :: pack()
+  }
+  */
+
+  def pack[T](l: List[T]): List[List[T]] = l.foldLeft(List[List[T]]()) {
+    (result, element) => {
+      if (result.isEmpty || result.last.last != element) result :+ List(element)
+      else result.dropRight(1) :+ (result.last :+ element)
+    }
+  }
+
+  def encode[T](l: List[T]): List[(Int, T)] = {
+    pack(l) map {
+      element => (element.size, element.head)
+    }
+  }
+
+  def encodeModified[T](l: List[T]): List[Any] = {
+    pack(l) map {
+      element =>
+        if (element.size == 1) element.head
+        else (element.size, element.head)
+    }
+  }
 }

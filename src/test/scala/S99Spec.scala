@@ -119,4 +119,85 @@ res0: List[Int] = List(8, 5, 3, 2, 1, 1)
     S99.isPalindromeQue(List(1, 2, 3, 3, 2, 1)) mustEqual true
     S99.isPalindromeQue(List(1, 2, 3, 2, 9)) mustEqual false
   }
+
+  /*
+  P07 (**) Flatten a nested list structure.
+Example:
+scala> flatten(List(List(1, 1), 2, List(3, List(5, 8))))
+res0: List[Any] = List(1, 1, 2, 3, 5, 8)
+  */
+  "flatten nested lists" in {
+    S99.flatten(List(List(1, 1), 2, List(3, List(5, 8)))) mustEqual List(1, 1, 2, 3, 5, 8)
+  }
+
+  /*
+  P08 (**) Eliminate consecutive duplicates of list elements.
+If a list contains repeated elements they should be replaced with a single copy of the element. The order of the elements should not be changed.
+Example:
+
+scala> compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+res0: List[Symbol] = List('a, 'b, 'c, 'a, 'd, 'e)
+
+   */
+
+  "Eliminate consecutive duplicates of list elements" in {
+    S99.compress(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) mustEqual List('a, 'b, 'c, 'a, 'd, 'e)
+  }
+  "Eliminate consecutive duplicates of list elements functionally" in {
+    S99.compressFunctional(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)) mustEqual List('a, 'b, 'c, 'a, 'd, 'e)
+  }
+
+  /*
+  P09 (**) Pack consecutive duplicates of list elements into sublists.
+If a list contains repeated elements they should be placed in separate sublists.
+Example:
+
+scala> pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+res0: List[List[Symbol]] = List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e))
+
+  */
+  "Pack consecutive duplicates of list elements into sublists" in {
+    val result = S99.pack(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+    result mustEqual List(List('a, 'a, 'a, 'a), List('b), List('c, 'c), List('a, 'a), List('d), List('e, 'e, 'e, 'e))
+
+  }
+
+  /*
+  P10 (*) Run-length encoding of a list.
+Use the result of problem P09 to implement the so-called run-length encoding data compression method. Consecutive duplicates of elements are encoded as tuples (N, E) where N is the number of duplicates of the element E.
+Example:
+
+scala> encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+res0: List[(Int, Symbol)] = List((4,'a), (1,'b), (2,'c), (2,'a), (1,'d), (4,'e))
+  */
+  "Run-length encoding of a list" in {
+    val result = S99.encode(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+    result mustEqual List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e))
+  }
+
+  /*
+P11 (*) Modified run-length encoding.
+Modify the result of problem P10 in such a way that if an element has no duplicates it is simply copied into the result list. Only elements with duplicates are transferred as (N, E) terms.
+Example:
+
+scala> encodeModified(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+res0: List[Any] = List((4,'a), 'b, (2,'c), (2,'a), 'd, (4,'e)) */
+  "Modified run-length encoding" in {
+    val result = S99.encodeModified(List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e))
+    result mustEqual List((4, 'a), 'b, (2, 'c), (2, 'a), 'd, (4, 'e))
+  }
+
+  /*
+  * P12 (**) Decode a run-length encoded list.
+Given a run-length code list generated as specified in problem P10, construct its uncompressed version.
+Example:
+
+scala> decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
+res0: List[Symbol] = List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+
+  "Decode a run-length encoded list" in {
+    val result = S99.decode(List((4, 'a), (1, 'b), (2, 'c), (2, 'a), (1, 'd), (4, 'e)))
+    result mustEqual List('a, 'a, 'a, 'a, 'b, 'c, 'c, 'a, 'a, 'd, 'e, 'e, 'e, 'e)
+  }
+  */
 }
