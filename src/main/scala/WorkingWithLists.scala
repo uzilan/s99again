@@ -1,6 +1,6 @@
 import annotation.tailrec
 
-object S99 {
+class WorkingWithLists {
 
   def last(l: List[Int]): Int = l.last
 
@@ -57,7 +57,7 @@ object S99 {
     (result, e) => e +: result
   }
 
-  @tailrec
+  //@tailrec
   def isPalindrome[T](l: List[T]): Boolean = {
     if (l.size < 2) true
     else if (l.head == l.last) isPalindrome(l.tail.takeRight(1)) else false
@@ -81,12 +81,6 @@ object S99 {
       else result
     }
   }
-
-  /*
-  def pack[T](l: List[T]): List[List[T]] = {
-    l.takeWhile(element => l.head == element) :: pack()
-  }
-  */
 
   def pack[T](l: List[T]): List[List[T]] = l.foldLeft(List[List[T]]()) {
     (result, element) => {
